@@ -31,7 +31,7 @@ class Automobile(models.Model):
 
     model = models.ForeignKey(
         VehicleModel,
-        related_name="automobiles",
+        related_name="autos",
         on_delete=models.CASCADE,
     )
 
