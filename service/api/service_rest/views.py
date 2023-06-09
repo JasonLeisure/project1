@@ -1,3 +1,5 @@
+from cmath import log
+from pickle import FALSE
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
@@ -37,7 +39,7 @@ def api_technician(request, id):
 
 @require_http_methods(["GET", "POST"])
 def api_list_appointment(request):
-    if request == "GET":
+    if request.method == "GET":
         appointments = Appointment.objects.all()
         return JsonResponse(
             {"appointments": appointments},
@@ -45,6 +47,7 @@ def api_list_appointment(request):
         )
     else:
         content = json.loads(request.body)
+        print(content)
         try:
             technician = content["technician"]
             technician = Technician.objects.get(id=content["technician"])
@@ -55,12 +58,10 @@ def api_list_appointment(request):
                 status=404,
             )
         try:
-            if AutomobileVO.objects.get(vin=content["vin"]).exists():
+            if AutomobileVO.objects.get(vin=content["vin"]):
                 content["vip"] = True
-
-        except AutomobileVO.DoesNotExist():
+        except AutomobileVO.DoesNotExist:
             content["vip"] = False
-
         appointment = Appointment.objects.create(**content)
         return JsonResponse(
             appointment,
