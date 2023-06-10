@@ -1,62 +1,71 @@
 import React, { useEffect, useState } from 'react';
 
 function TechnicianForm() {
-    let alertClasses = "alert alert-success d-none";
-    const [name, setName] = useState('');
-    const [submitted, setSubmit] = useState('');
+  let alertClasses = "alert alert-success d-none";
+  const [submitted, setSubmit] = useState('');
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name:
+  })
 
-    const handleNameChange = (event) => {
-        setName(event.target.value)
-    }
+  const handleFormChange = (event) => {
+    const first_name = event.target.value;
+    const last_name = event.target.value;
+    const employee_id = event.target.value;
+  }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  const handleSubmit = async (event) => {
+      event.preventDefault()
 
-        const data = { name }
-        const url = 'http://localhost:8100/api/technicians/';
-        const fetchConfig = {
-            method: "post",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
+      const data = {}
+      data.technician_name = technicianName
+      data.employee_number = employeeNumber
 
-        const response = await fetch(url, fetchConfig);
-        if (response.ok) {
-            const newTechnician = await response.json();
+      const url = 'http://localhost:8080/api/technicians/';
+      const fetchConfig = {
+        method: "post",
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
 
-            setName('')
+      const response = await fetch(url, fetchConfig);
+      if (response.ok) {
+        const appointment = await response.json();
 
-            setSubmit('submitted!')
-        }
-    }
+        setTechnicianName('');
+        setEmployeeNumber('');
+        getTechnicians()
+      }
+  }
 
-    if (submitted.length > 0) {
-        alertClasses = "alert alert-success mt-4";
-        console.log(alertClasses)
-    }
-    return (
-        <>
-            <div className={alertClasses} role="alert">
-                Technician successfully submitted!
+  return (
+      <div className="my-5 container">
+      <div className="offset-3 col-6">
+        <div className="shadow p-4 mt-4">
+          <h1>Add a technician</h1>
+          <form onSubmit={handleSubmit} id="create-appointment-form">
+            <div className="form-floating mb-3">
+              <input onChange={handleTechnicianNameChange} value={first_name} placeholder="first_name" required type="text" name="first_name" className="form-control"/>
+              <label htmlFor="technician_name">Technician name</label>
             </div>
-            <div className="row">
-                <div className="offset-3 col-6">
-                    <div className="shadow p-4 mt-4">
-                        <h1>New Technician Submission!</h1>
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-floating mb-3">
-                                <input placeholder="Name" onChange={handleNameChange} required value={name} type="text" name="name" id="name" className="form-control" />
-                                <label htmlFor="name">Name</label>
-                            </div>
-                            <button className="btn btn-primary">Create</button>
-                        </form>
-                    </div>
-                </div>
+            <div className="form-floating mb-3">
+              <input onChange={handleTechnicianNameChange} value={last_name} placeholder="last_name" required type="text" name="last_name" className="form-control"/>
+              <label htmlFor="technician_name">Technician name</label>
             </div>
-        </>
-    );
+            <div className="form-floating mb-3">
+              <input onChange={handleEmployeeNumberChange} value={employee_id} placeholder="employee_id" required type="text" name="employee_number" className="form-control"/>
+              <label htmlFor="employee_number">Employee number</label>
+            </div>
+            <button className="btn btn-primary">Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+
 }
+
 
 export default TechnicianForm;
