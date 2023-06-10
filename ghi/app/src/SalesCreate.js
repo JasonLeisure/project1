@@ -127,61 +127,97 @@ function SalesCreate() {
     }
     return (
         <>
-            <div className={alertClasses} role="alert">
-                {alert}
+          <div className={alertClasses} role="alert">
+            {alert}
+          </div>
+          <div className="row">
+            <div className="offset-3 col-6">
+              <div className="shadow p-4 mt-4">
+                <h1>New Sale Submission!</h1>
+                <form onSubmit={handleSubmit}>
+                  <div className="form-floating mb-3">
+                    <input
+                      placeholder="Price"
+                      onChange={handleFormChange}
+                      required
+                      value={formData.price}
+                      type="number"
+                      name="price"
+                      id="price"
+                      className="form-control"
+                    />
+                    <label htmlFor="price">Price</label>
+                  </div>
+                  <div className="mb-3">
+                    <select
+                      required
+                      onChange={handleFormChange}
+                      value={formData.salesperson}
+                      name="salesperson"
+                      id="salesperson"
+                      className="form-select"
+                    >
+                      <option value="">Choose a salesperson</option>
+                      {salespeople.map((salesperson) => {
+                        return (
+                          <option
+                            key={salesperson.employee_number}
+                            value={salesperson.employee_number}
+                          >
+                            {salesperson.name} - {salesperson.employee_number}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <select
+                      required
+                      onChange={handleFormChange}
+                      value={formData.customer}
+                      name="customer"
+                      id="customer"
+                      className="form-select"
+                    >
+                      <option value="">Choose a customer</option>
+                      {customers.map((customer) => {
+                        return (
+                          <option
+                            key={customer.phone_number}
+                            value={customer.phone_number}
+                          >
+                            {customer.name} - {customer.phone_number}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <select
+                      required
+                      onChange={handleFormChange}
+                      value={formData.automobile}
+                      name="automobile"
+                      id="automobile"
+                      className="form-select"
+                    >
+                      <option value="">Choose an automobile VIN</option>
+                      {automobiles.map((automobile) => {
+                        return (
+                          <option key={automobile.vin} value={automobile.vin}>
+                            {automobile.vin}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                  <button className="btn btn-primary">Create</button>
+                </form>
+              </div>
             </div>
-            <div className="row">
-                <div className="offset-3 col-6">
-                    <div className="shadow p-4 mt-4">
-                        <h1>New Sale Submission!</h1>
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-3">
-                                <select required onChange={handleFormChange} value={formData.automobile} name="automobile" id="automobile" className="form-select">
-                                    <option value="">Choose a automobile VIN</option>
-                                    {automobiles.map(automobile => {
-                                        return (
-                                            <option key={automobile.vin} value={automobile.vin}>
-                                                {automobile.vin}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
-                            </div>
-                            <div className="mb-3">
-                                <select required onChange={handleFormChange} value={formData.salesperson} name="salesperson" id="salesperson" className="form-select">
-                                    <option value="">Choose a salesperson</option>
-                                    {salespeople.map(salesperson => {
-                                        return (
-                                            <option key={salesperson.employee_number} value={salesperson.employee_number}>
-                                                {salesperson.name} {salesperson.employee_number}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
-                            </div>
-                            <div className="mb-3">
-                                <select required onChange={handleFormChange} value={formData.customer} name="customer" id="customer" className="form-select">
-                                    <option value="">Choose a customer</option>
-                                    {customers.map(customer => {
-                                        return (
-                                            <option key={customer.phone_number} value={customer.phone_number}>
-                                                {customer.name} - {customer.phone_number}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <input placeholder="Price" onChange={handleFormChange} required value={formData.price} type="number" name="price" id="price" className="form-control" />
-                                <label htmlFor="Price">Price</label>
-                            </div>
-                            <button className="btn btn-primary">Create</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+          </div>
         </>
-    );
-}
+      );
+      }
 
-export default SalesCreate;
+      export default SalesCreate;
