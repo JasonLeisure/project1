@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 export default function AppointmentForm({ getAppointments, technicians }) {
 
+  // date, technicians, technician, date etc..
+  //
     const [vin, setVin] = useState('')
     const [customerName, setCustomerName] = useState('')
     const [dateTime, setDateTime] = useState('')
@@ -36,12 +38,14 @@ export default function AppointmentForm({ getAppointments, technicians }) {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
+        // make sure variables line up
         const data = {}
         data.vin = vin
-        data.customer_name = customerName
+        data.customer = customerName
         data.date_time = dateTime
-        data.technician_name = technicianName
+        data.technician = technicianName
         data.reason = reason
+        console.log(data);
 
         const url = 'http://localhost:8080/api/appointments/';
         const fetchConfig = {

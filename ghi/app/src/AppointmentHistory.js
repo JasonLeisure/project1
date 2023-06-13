@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+//passing appointments and setAppointments as a prop,
 function AppointmentHistory({ appointments, setAppointments }) {
 
     const [vinSearch, setVinSearch] = useState('')

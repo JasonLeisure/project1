@@ -22,7 +22,7 @@ function AppointmentList() {
         <table className="table table-striped">
             <thead>
                 <tr>
-                    <th></th>
+                    <th>Test</th>
                 </tr>
             </thead>
         </table>
